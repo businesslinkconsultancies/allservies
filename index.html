@@ -56,6 +56,7 @@
       pointer-events:none;
       opacity:.9;
     }
+
     .heroRow{position:relative; display:flex; gap:14px; align-items:center;}
     .logo{
       width:62px; height:62px;
@@ -68,6 +69,7 @@
       display:flex; align-items:center; justify-content:center;
     }
     .logo img{width:100%; height:100%; object-fit:cover;}
+
     .heroTitle{
       margin:0;
       font-size:20px;
@@ -83,9 +85,37 @@
       max-width: 760px;
     }
 
-    .chips{
+    .heroActions{
       position:relative;
       margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight:800;
+      font-size:13px;
+      color: rgba(255,255,255,.95);
+      background: linear-gradient(135deg, rgba(14,165,233,.95), rgba(37,99,235,.92));
+      box-shadow: 0 14px 34px rgba(0,0,0,.30);
+      transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+    }
+    .btn:hover{transform: translateY(-2px); filter: brightness(1.02); box-shadow: 0 18px 42px rgba(0,0,0,.36);}
+    .btn:active{transform: translateY(0px) scale(.99);}
+
+    .chips{
+      position:relative;
+      margin-top:10px;
       display:flex; flex-wrap:wrap; gap:8px;
     }
     .chip{
@@ -112,6 +142,7 @@
       letter-spacing:.14em;
       text-transform:uppercase;
       color: rgba(255,255,255,.72);
+      white-space:nowrap;
     }
     .sectionLine{
       height:1px;
@@ -152,6 +183,7 @@
       align-items:flex-start;
     }
 
+    /* soft colored glow */
     a.card::before{
       content:"";
       position:absolute;
@@ -163,10 +195,29 @@
       pointer-events:none;
     }
 
+    /* premium "shine" sweep */
+    a.card::after{
+      content:"";
+      position:absolute;
+      top:-40%;
+      left:-60%;
+      width:120%;
+      height:160%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 45%, transparent 70%);
+      transform: rotate(8deg);
+      opacity: .0;
+      transition: opacity .18s ease, transform .18s ease;
+      pointer-events:none;
+    }
+
     a.card:hover{
       transform: translateY(-3px) scale(1.01);
       border-color: rgba(14,165,233,.42);
       box-shadow: 0 22px 60px rgba(0,0,0,.42);
+    }
+    a.card:hover::after{
+      opacity:.9;
+      transform: rotate(8deg) translateX(26%);
     }
 
     a.card:active{
@@ -189,7 +240,9 @@
       font-size:20px;
       flex: 0 0 auto;
       transform: translateZ(0);
+      transition: transform .18s ease;
     }
+    a.card:hover .ico3d{transform: translateY(-1px) scale(1.03);}
     .ico3d::after{
       content:"";
       position:absolute;
@@ -212,10 +265,11 @@
     }
     .footer b{color: rgba(255,255,255,.92);}
 
-    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
       a.card{transition:none}
       a.card:hover{transform:none}
+      a.card::after{display:none}
+      .btn{transition:none}
     }
   </style>
 </head>
@@ -227,8 +281,8 @@
     <div class="hero">
       <div class="heroRow">
         <div class="logo">
-          <!-- Your logo path (spaces encoded) -->
-          <img src="assests/WhatsApp Image 2026-01-12 at 09.42.48.jpeg" alt="Business Link Consultancies logo">
+          <!-- ✅ FIXED: assets folder + encoded spaces -->
+          <img src="assets/WhatsApp%20Image%202026-01-12%20at%2009.42.48.jpeg" alt="Business Link Consultancies logo">
         </div>
         <div>
           <h1 class="heroTitle">Business Link Consultancies</h1>
@@ -237,6 +291,10 @@
             Our team will guide you step-by-step.
           </p>
         </div>
+      </div>
+
+      <div class="heroActions">
+        <a class="btn" id="chatNow" href="#">💬 Chat on WhatsApp</a>
       </div>
 
       <div class="chips">
@@ -302,7 +360,7 @@
       </a>
     </div>
 
-    <!-- SECTION 2 (as you wanted) -->
+    <!-- SECTION 2 -->
     <div class="sectionHead">
       <p class="sectionTitle">Web & IT Services</p>
       <div class="sectionLine"></div>
@@ -364,7 +422,7 @@
       </a>
     </div>
 
-    <!-- SECTION 4 (no PRO/Visa here) -->
+    <!-- SECTION 4 -->
     <div class="sectionHead">
       <p class="sectionTitle">Tax & Accounting</p>
       <div class="sectionLine"></div>
@@ -393,13 +451,21 @@
   </div>
 
   <script>
-    // PUT YOUR WHATSAPP NUMBER HERE (digits only)
-    // Example: +971 58 641 2053 -> 971586412053
+    // ✅ Your WhatsApp number (digits only, no +, no spaces)
     const WHATSAPP_NUMBER = "971502994976";
 
-    // Best message for conversion (short + asks next step)
+    // Message text (clean + professional)
     function buildMessage(service){
-      return `Hi, I need ${service}. Please assist me step by step and share the requirements & cost.`;
+      return `Hi, I need ${service}. Please assist me and share the requirements & cost.`;
+    }
+
+    // Main CTA (general WhatsApp chat)
+    const chatNow = document.getElementById("chatNow");
+    if (chatNow){
+      const msg = encodeURIComponent("Hi, I scanned your business card and need assistance. Please guide me.");
+      chatNow.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+      chatNow.target = "_blank";
+      chatNow.rel = "noopener";
     }
 
     // Apply WhatsApp link to each service card
@@ -413,3 +479,4 @@
   </script>
 </body>
 </html>
+
