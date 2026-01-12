@@ -7,54 +7,123 @@
 
   <style>
     :root{
-      --bg:#f5f7fb;
-      --card:#ffffff;
-      --text:#0f172a;
-      --muted:#64748b;
+      --bg1:#0b1220;
+      --bg2:#0b3a66;
       --brand:#0ea5e9;
-      --brand2:#1e3a8a;
-      --ring: rgba(14,165,233,.18);
+      --brand2:#2563eb;
+      --card: rgba(255,255,255,.10);
+      --card2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.16);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --shadow2: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 22px;
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(900px 500px at 20% -10%, rgba(14,165,233,.18), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(30,58,138,.16), transparent 55%),
-        var(--bg);
       color:var(--text);
+      background:
+        radial-gradient(900px 600px at 15% 10%, rgba(14,165,233,.40), transparent 60%),
+        radial-gradient(900px 600px at 85% 0%, rgba(37,99,235,.35), transparent 58%),
+        radial-gradient(1100px 700px at 50% 90%, rgba(255,255,255,.06), transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
     }
-    .wrap{max-width:860px; margin:0 auto; padding:22px 14px 40px;}
-    .top{
-      display:flex; gap:14px; align-items:center;
-      background:rgba(255,255,255,.7);
-      border:1px solid rgba(15,23,42,.06);
-      border-radius:18px;
-      padding:14px;
-      backdrop-filter: blur(8px);
-    }
-    .logo{
-      width:56px; height:56px; border-radius:16px;
-      background:#fff;
-      border:1px solid rgba(15,23,42,.06);
-      display:flex; align-items:center; justify-content:center;
+
+    .wrap{max-width:980px; margin:0 auto; padding:22px 14px 44px;}
+
+    /* HERO */
+    .hero{
+      position:relative;
+      border-radius: 28px;
+      padding: 18px 18px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
       overflow:hidden;
-      box-shadow: 0 10px 24px rgba(2,6,23,.06);
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 260px at 20% 0%, rgba(14,165,233,.28), transparent 55%),
+                  radial-gradient(700px 260px at 90% 20%, rgba(37,99,235,.22), transparent 52%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .heroRow{position:relative; display:flex; gap:14px; align-items:center;}
+    .logo{
+      width:62px; height:62px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 26px rgba(0,0,0,.28);
+      overflow:hidden;
       flex:0 0 auto;
+      display:flex; align-items:center; justify-content:center;
     }
     .logo img{width:100%; height:100%; object-fit:cover;}
-    h1{font-size:18px; margin:0 0 2px;}
-    .sub{margin:0; color:var(--muted); font-size:13px; line-height:1.35;}
-    .pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
-    .pill{
-      font-size:12px; color:#0b1220;
-      background: rgba(14,165,233,.10);
-      border:1px solid rgba(14,165,233,.20);
-      padding:6px 10px; border-radius:999px;
+    .heroTitle{
+      margin:0;
+      font-size:20px;
+      letter-spacing:.2px;
+      font-weight:900;
+      line-height:1.1;
     }
+    .heroSub{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+      max-width: 760px;
+    }
+
+    .chips{
+      position:relative;
+      margin-top:12px;
+      display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .chip{
+      padding:8px 10px;
+      border-radius: 999px;
+      font-size:12px;
+      color: rgba(255,255,255,.86);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(8px);
+    }
+
+    /* SECTIONS */
+    .sectionHead{
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .sectionTitle{
+      margin:0;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.72);
+    }
+    .sectionLine{
+      height:1px;
+      flex:1;
+      background: linear-gradient(90deg, rgba(255,255,255,.22), transparent);
+      border-radius:99px;
+      opacity:.6;
+    }
+
+    /* GRID */
     .grid{
-      margin-top:14px;
+      margin-top:12px;
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
       gap:12px;
@@ -62,215 +131,279 @@
     @media (min-width: 860px){
       .grid{grid-template-columns: repeat(3, minmax(0,1fr));}
     }
-    .section{
-      margin-top:16px;
-      color:var(--muted);
-      font-size:12px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-    }
+
+    /* 3D GLASS CARDS */
     a.card{
+      position:relative;
       text-decoration:none;
-      background: var(--card);
-      border:1px solid rgba(15,23,42,.08);
-      border-radius:18px;
-      padding:14px;
+      color: var(--text);
+      border-radius: var(--radius);
+      padding: 14px 14px 14px;
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(12px);
+      overflow:hidden;
+      transform: translateZ(0);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      min-height: 98px;
       display:flex;
       gap:12px;
       align-items:flex-start;
-      box-shadow: 0 12px 28px rgba(2,6,23,.06);
-      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-      min-height:92px;
     }
+
+    a.card::before{
+      content:"";
+      position:absolute;
+      inset: -2px;
+      background:
+        radial-gradient(280px 140px at 15% 20%, rgba(14,165,233,.22), transparent 60%),
+        radial-gradient(280px 140px at 85% 10%, rgba(37,99,235,.18), transparent 58%);
+      opacity:.9;
+      pointer-events:none;
+    }
+
     a.card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(14,165,233,.35);
-      box-shadow: 0 18px 40px rgba(2,6,23,.10);
+      transform: translateY(-3px) scale(1.01);
+      border-color: rgba(14,165,233,.42);
+      box-shadow: 0 22px 60px rgba(0,0,0,.42);
     }
-    .ico{
-      width:44px; height:44px; border-radius:14px;
-      display:flex; align-items:center; justify-content:center;
-      background: linear-gradient(135deg, rgba(14,165,233,.18), rgba(30,58,138,.14));
-      border:1px solid rgba(14,165,233,.18);
-      box-shadow: 0 0 0 6px var(--ring);
+
+    a.card:active{
+      transform: translateY(0px) scale(.995);
+      box-shadow: 0 14px 36px rgba(0,0,0,.35);
+    }
+
+    .ico3d{
+      position:relative;
+      width:46px; height:46px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow:
+        0 10px 18px rgba(0,0,0,.30),
+        inset 0 1px 0 rgba(255,255,255,.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
       flex: 0 0 auto;
-      font-size:18px;
+      transform: translateZ(0);
     }
-    .title{margin:0; font-size:14px; font-weight:800; line-height:1.2;}
-    .desc{margin:6px 0 0; color:var(--muted); font-size:12px; line-height:1.35;}
+    .ico3d::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:16px;
+      background: radial-gradient(18px 18px at 30% 25%, rgba(255,255,255,.26), transparent 70%);
+      pointer-events:none;
+    }
+
+    .cardBody{position:relative}
+    .t{margin:0; font-size:14px; font-weight:900; letter-spacing:.2px; line-height:1.15;}
+    .d{margin:6px 0 0; color:rgba(255,255,255,.72); font-size:12px; line-height:1.35;}
+
+    /* FOOTER */
     .footer{
       margin-top:16px;
-      font-size:12px;
-      color:var(--muted);
       text-align:center;
+      color: rgba(255,255,255,.70);
+      font-size:12px;
     }
-    .footer b{color:var(--text)}
+    .footer b{color: rgba(255,255,255,.92);}
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      a.card{transition:none}
+      a.card:hover{transform:none}
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="top">
-      <div class="logo">
-        <!-- Your logo file path (spaces encoded as %20 for safety) -->
-        <img src="assests/WhatsApp Image 2026-01-12 at 09.42.48.jpeg" alt="Business Link logo">
-      </div>
-      <div>
-        <h1>Business Link Consultancies</h1>
-        <p class="sub">Select a service → WhatsApp opens instantly with the service name. We’ll assist you right away.</p>
-        <div class="pillrow">
-          <div class="pill">Mainland • Free Zone • Offshore</div>
-          <div class="pill">PRO • Visas • Approvals</div>
-          <div class="pill">Tax • Accounting • Tech</div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="heroRow">
+        <div class="logo">
+          <!-- Your logo path (spaces encoded) -->
+          <img src="assets/WhatsApp%20Image%202026-01-12%20at%2009.42.48.jpeg" alt="Business Link Consultancies logo">
         </div>
+        <div>
+          <h1 class="heroTitle">Business Link Consultancies</h1>
+          <p class="heroSub">
+            Select a service below — WhatsApp opens instantly with the service name.
+            Our team will guide you step-by-step.
+          </p>
+        </div>
+      </div>
+
+      <div class="chips">
+        <div class="chip">Mainland • Free Zone • Offshore</div>
+        <div class="chip">PRO • Visas • Approvals</div>
+        <div class="chip">VAT • Corporate Tax • Accounting</div>
+        <div class="chip">Web • IT</div>
       </div>
     </div>
 
-    <!-- 1) Business Setup & Licensing -->
-    <div class="section">Business Setup & Licensing</div>
+    <!-- SECTION 1 -->
+    <div class="sectionHead">
+      <p class="sectionTitle">Business Setup & Licensing</p>
+      <div class="sectionLine"></div>
+    </div>
     <div class="grid">
       <a class="card" href="#" data-service="New Business Setup (Mainland / Free Zone / Offshore)">
-        <div class="ico">🏢</div>
-        <div>
-          <p class="title">New Business Setup</p>
-          <p class="desc">Mainland / Free Zone / Offshore</p>
+        <div class="ico3d">🏢</div>
+        <div class="cardBody">
+          <p class="t">New Business Setup</p>
+          <p class="d">Mainland • Free Zone • Offshore</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Trade License Issuance & Renewal">
-        <div class="ico">📄</div>
-        <div>
-          <p class="title">Trade License</p>
-          <p class="desc">Issuance & Renewal</p>
+        <div class="ico3d">📄</div>
+        <div class="cardBody">
+          <p class="t">Trade License</p>
+          <p class="d">Issuance & renewal</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Business Amendments (Partner / Activity / Name Changes)">
-        <div class="ico">🧾</div>
-        <div>
-          <p class="title">Business Amendments</p>
-          <p class="desc">Partner / Activity / Name changes</p>
+        <div class="ico3d">🧾</div>
+        <div class="cardBody">
+          <p class="t">Business Amendments</p>
+          <p class="d">Partner • Activity • Name changes</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Local Sponsor / Corporate Nominee Services">
-        <div class="ico">🤝</div>
-        <div>
-          <p class="title">Local Sponsor</p>
-          <p class="desc">Corporate nominee services</p>
+        <div class="ico3d">🤝</div>
+        <div class="cardBody">
+          <p class="t">Local Sponsor</p>
+          <p class="d">Corporate nominee services</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Bank Account Assistance">
-        <div class="ico">🏦</div>
-        <div>
-          <p class="title">Bank Account</p>
-          <p class="desc">Assistance & support</p>
+        <div class="ico3d">🏦</div>
+        <div class="cardBody">
+          <p class="t">Bank Account</p>
+          <p class="d">Assistance & support</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Office Ejari & Business Address Solutions">
-        <div class="ico">📍</div>
-        <div>
-          <p class="title">Ejari & Address</p>
-          <p class="desc">Office Ejari & address solutions</p>
+        <div class="ico3d">📍</div>
+        <div class="cardBody">
+          <p class="t">Ejari & Address</p>
+          <p class="d">Office Ejari & address solutions</p>
         </div>
       </a>
     </div>
 
-    <!-- 2) Web & IT Services (SECOND LINE as you requested) -->
-    <div class="section">Web & IT Services</div>
+    <!-- SECTION 2 (as you wanted) -->
+    <div class="sectionHead">
+      <p class="sectionTitle">Web & IT Services</p>
+      <div class="sectionLine"></div>
+    </div>
     <div class="grid">
       <a class="card" href="#" data-service="Web Page Design">
-        <div class="ico">🌐</div>
-        <div>
-          <p class="title">Web Page Design</p>
-          <p class="desc">Modern, fast business websites</p>
+        <div class="ico3d">🌐</div>
+        <div class="cardBody">
+          <p class="t">Web Page Design</p>
+          <p class="d">Modern, fast business website</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="All IT Services">
-        <div class="ico">🖥️</div>
-        <div>
-          <p class="title">All IT Services</p>
-          <p class="desc">IT support, systems & setup</p>
+        <div class="ico3d">🖥️</div>
+        <div class="cardBody">
+          <p class="t">All IT Services</p>
+          <p class="d">Support • systems • setup</p>
         </div>
       </a>
     </div>
 
-    <!-- 3) PRO, Visas & Government Approvals -->
-    <div class="section">PRO, Visas & Government Approvals</div>
+    <!-- SECTION 3 -->
+    <div class="sectionHead">
+      <p class="sectionTitle">PRO, Visas & Government Approvals</p>
+      <div class="sectionLine"></div>
+    </div>
     <div class="grid">
       <a class="card" href="#" data-service="Complete PRO Services & Visa Processing">
-        <div class="ico">🛂</div>
-        <div>
-          <p class="title">PRO & Visa Processing</p>
-          <p class="desc">Complete PRO services</p>
+        <div class="ico3d">🛂</div>
+        <div class="cardBody">
+          <p class="t">PRO & Visa Processing</p>
+          <p class="d">Complete PRO services</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Golden Visa & Investor Visa Services">
-        <div class="ico">⭐</div>
-        <div>
-          <p class="title">Golden / Investor Visa</p>
-          <p class="desc">Eligibility & processing</p>
+        <div class="ico3d">⭐</div>
+        <div class="cardBody">
+          <p class="t">Golden / Investor Visa</p>
+          <p class="d">Eligibility & processing</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Immigration & Labor Department Services">
-        <div class="ico">🧑‍💼</div>
-        <div>
-          <p class="title">Immigration & Labor</p>
-          <p class="desc">All department services</p>
+        <div class="ico3d">🧑‍💼</div>
+        <div class="cardBody">
+          <p class="t">Immigration & Labor</p>
+          <p class="d">Department services</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Municipality, RTA & Other Government Approvals">
-        <div class="ico">✅</div>
-        <div>
-          <p class="title">Govt Approvals</p>
-          <p class="desc">Municipality • RTA • more</p>
+        <div class="ico3d">✅</div>
+        <div class="cardBody">
+          <p class="t">Government Approvals</p>
+          <p class="d">Municipality • RTA • more</p>
         </div>
       </a>
     </div>
 
-    <!-- 4) Tax & Accounting (LAST SECTION — no PRO/Visa here) -->
-    <div class="section">Tax & Accounting</div>
+    <!-- SECTION 4 (no PRO/Visa here) -->
+    <div class="sectionHead">
+      <p class="sectionTitle">Tax & Accounting</p>
+      <div class="sectionLine"></div>
+    </div>
     <div class="grid">
       <a class="card" href="#" data-service="VAT Registration, Filing & Corporate Tax Services">
-        <div class="ico">💼</div>
-        <div>
-          <p class="title">VAT & Corporate Tax</p>
-          <p class="desc">Registration • filing • compliance</p>
+        <div class="ico3d">💼</div>
+        <div class="cardBody">
+          <p class="t">VAT & Corporate Tax</p>
+          <p class="d">Registration • filing • compliance</p>
         </div>
       </a>
 
       <a class="card" href="#" data-service="Accounting & Bookkeeping Support">
-        <div class="ico">📊</div>
-        <div>
-          <p class="title">Accounting & Bookkeeping</p>
-          <p class="desc">Bookkeeping & reporting</p>
+        <div class="ico3d">📊</div>
+        <div class="cardBody">
+          <p class="t">Accounting & Bookkeeping</p>
+          <p class="d">Monthly support & reporting</p>
         </div>
       </a>
     </div>
 
     <div class="footer">
-      <b>Business Link Consultancies</b> • Scan → select service → WhatsApp opens instantly
+      <b>Business Link Consultancies</b> • Scan → Select service → WhatsApp opens instantly
     </div>
   </div>
 
   <script>
-    // ✅ Put your WhatsApp number here (digits only, no +, no spaces)
-    // Example: +971 58 641 2053  ->  971586412053
-    const WHATSAPP_NUMBER = "971521026575";
+    // PUT YOUR WHATSAPP NUMBER HERE (digits only)
+    // Example: +971 58 641 2053 -> 971586412053
+    const WHATSAPP_NUMBER = "971502994976";
 
-    // Best converting message (short, clear, asks for next step)
+    // Best message for conversion (short + asks next step)
     function buildMessage(service){
-      return `Hi, I need ${service}. Please assist me and share the requirements & cost.`;
+      return `Hi, I need ${service}. Please assist me step by step and share the requirements & cost.`;
     }
 
-    // Wire each service card to WhatsApp deep link
-    document.querySelectorAll("a.card").forEach(a=>{
+    // Apply WhatsApp link to each service card
+    document.querySelectorAll("a.card").forEach(a => {
       const service = a.getAttribute("data-service") || "Service Inquiry";
       const msg = encodeURIComponent(buildMessage(service));
       a.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
